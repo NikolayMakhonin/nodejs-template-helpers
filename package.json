@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:perf": "browserify ./test/perf/test.js -o ./dist/test/perf/test.js -d -t babelify",
-    "test": "mocha -r @babel/register --recursive --exclude **/perf/** --exclude **/src/**",
-    "watch": "mocha -r @babel/register --recursive --exclude **/perf/** --exclude **/src/** --watch --watch-extensions .*"
+    "test": "mocha -r ./babel-register --recursive --exclude **/perf/** --exclude **/src/**",
+    "watch": "mocha -r ./babel-register --recursive --exclude **/perf/** --exclude **/src/** --watch --watch-extensions .*"
   },
   "author": "",
   "license": "ISC",
