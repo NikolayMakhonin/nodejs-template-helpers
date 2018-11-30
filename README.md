@@ -5,8 +5,8 @@ npx degit NikolayMakhonin/nodejs-template-helpers my-app
 ```
 
 ```bash
-npm i
-npm run test
+cd my-app
+npm i && npm run test
 ```
 
 Module usage:
@@ -14,7 +14,7 @@ Module usage:
   <package.json>
   ...
   "dependencies": {
-    "helpers": "file:../common/modules/helpers",
+    "helpers": "file:../common/modules/helpers"
   },
   ...
 ```
