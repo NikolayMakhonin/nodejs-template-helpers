@@ -23,8 +23,8 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
-    </panes>
+      <pane id="ProjectPane"/>
+            </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -72,7 +72,7 @@
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
-      <extra-mocha-options>-r @babel/register --exclude **/perf/** --exclude **/src/**</extra-mocha-options>
+      <extra-mocha-options>-r ./babel-register --exclude **/perf/** --exclude **/src/**</extra-mocha-options>
       <test-kind>DIRECTORY</test-kind>
       <test-directory>$PROJECT_DIR$/test</test-directory>
       <recursive>true</recursive>
@@ -85,7 +85,7 @@
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
-      <extra-mocha-options>-r @babel/register --exclude **/perf/** --exclude **/src/** --watch --watch-extensions .*</extra-mocha-options>
+      <extra-mocha-options>-r ./babel-register --exclude **/perf/** --exclude **/src/** --watch --watch-extensions .*</extra-mocha-options>
       <test-kind>DIRECTORY</test-kind>
       <test-directory>$PROJECT_DIR$/test</test-directory>
       <recursive>true</recursive>
@@ -98,7 +98,7 @@
       <working-directory>$PROJECT_DIR$</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
-      <extra-mocha-options>-r @babel/register</extra-mocha-options>
+      <extra-mocha-options>-r ./babel-register</extra-mocha-options>
       <test-kind>DIRECTORY</test-kind>
       <test-directory>$PROJECT_DIR$/test</test-directory>
       <recursive>true</recursive>
@@ -121,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1543569064403</updated>
       <workItem from="1543569067640" duration="1020000" />
-    </task>
+      </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
