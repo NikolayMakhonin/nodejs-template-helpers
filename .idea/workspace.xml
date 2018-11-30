@@ -22,9 +22,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
-      <pane id="ProjectPane"/>
-            </panes>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -48,47 +48,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.Profiling">
-    <configuration name="Profiling" type="NodeJSConfigurationType" path-to-node="$Node2$/node" node-parameters="--max-old-space-size=4096 --prof" path-to-js-file="dist/test/perf/test.js" working-dir="$PROJECT_DIR$">
-      <method v="2">
-        <option name="NpmBeforeRunTask" enabled="true">
-          <package-json value="$PROJECT_DIR$/package.json" />
-          <command value="run" />
-          <scripts>
-            <script value="build:perf" />
-          </scripts>
-          <node-interpreter value="$Node2$/node" />
-          <envs />
-        </option>
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Mocha.Watch Mocha">
     <configuration default="true" type="NodeJSConfigurationType" path-to-node="$Node2$/node" node-parameters="--max-old-space-size=4096" working-dir="$PROJECT_DIR$">
-      <method v="2" />
-    </configuration>
-    <configuration name="Coverage Mocha" type="mocha-javascript-test-runner">
-      <node-interpreter>$Node2$/node</node-interpreter>
-      <node-options>--max-old-space-size=4096</node-options>
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>-r ./babel-register --exclude **/perf/** --exclude **/src/**</extra-mocha-options>
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory>$PROJECT_DIR$/test</test-directory>
-      <recursive>true</recursive>
-      <method v="2" />
-    </configuration>
-    <configuration name="Watch Mocha" type="mocha-javascript-test-runner">
-      <node-interpreter>$Node2$/node</node-interpreter>
-      <node-options>--max-old-space-size=4096</node-options>
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>-r ./babel-register --exclude **/perf/** --exclude **/src/** --watch --watch-extensions .*</extra-mocha-options>
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory>$PROJECT_DIR$/test</test-directory>
-      <recursive>true</recursive>
       <method v="2" />
     </configuration>
     <configuration default="true" type="mocha-javascript-test-runner">
@@ -115,35 +76,42 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="06c68f30-7285-4251-a6ac-39cbb7993b16" name="Default Changelist" comment="" />
+      <changelist id="4f6e7db9-7bbb-4d40-b2c7-df9daad6d7a7" name="Default Changelist" comment="" />
       <created>1543569064403</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1543569064403</updated>
       <workItem from="1543569067640" duration="1020000" />
-      </task>
+      <workItem from="1543588627833" duration="35000" />
+      <workItem from="1543588687650" duration="309000" />
+    </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Watch_Mocha - 2018.11.30 at 16h 37m 26s.xml">
+      <configuration name="Watch Mocha" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1020000" />
+    <option name="totallyTimeSpent" value="1364000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="892" extended-state="6" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.125132" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.125132" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286908" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
