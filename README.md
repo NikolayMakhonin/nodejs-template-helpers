@@ -8,3 +8,13 @@ npx degit NikolayMakhonin/nodejs-template-helpers my-app
 npm i
 npm run test
 ```
+
+Module usage:
+```bash
+  <package.json>
+  ...
+  "dependencies": {
+    "helpers": "file:../common/modules/helpers",
+  },
+  ...
+```
