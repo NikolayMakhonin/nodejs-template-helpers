@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed861dbb-730d-496a-b44e-5985eda7b0f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/base.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Coverage_Mocha.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Coverage_Mocha.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Profiling.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Watch_Mocha.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Watch_Mocha.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/babel-register.js" beforeDir="false" afterPath="$PROJECT_DIR$/babel-register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/example.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/env/modules.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/env/src/module1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/env/src/module2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/perf/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test/example.js" beforeDir="false" />
-    </list>
+    <list default="true" id="ed861dbb-730d-496a-b44e-5985eda7b0f3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -237,7 +220,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -294,7 +277,7 @@
       <workItem from="1543588627833" duration="35000" />
       <workItem from="1543588687650" duration="309000" />
       <workItem from="1545290393177" duration="1531000" />
-      <workItem from="1545292270423" duration="575000" />
+      <workItem from="1545292270423" duration="956000" />
     </task>
     <servers />
   </component>
@@ -331,7 +314,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3470000" />
+    <option name="totallyTimeSpent" value="3851000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="892" extended-state="6" />
