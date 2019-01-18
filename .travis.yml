@@ -6,7 +6,7 @@ os:
   - osx
 
 node_js:
-  - "stable"
+  - "11.5.0"
   - "6.4.0"
 
 sudo: false
