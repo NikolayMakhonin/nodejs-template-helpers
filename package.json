@@ -1,8 +1,11 @@
 {
-  "name": "helpers",
-  "version": "0.0.3",
-  "description": "",
-  "main": "index.js",
+  "name": "TODO",
+  "version": "TODO",
+  "description": "TODO",
+  "engines": {
+    "node": ">= 6.4.0"
+  },
+  "main": "src/index.js",
   "scripts": {
     "lint": "eslint --plugin markdown --ext js,md .",
     "test": "mocha -r ./babel-register --recursive --exclude **/profiling/** --exclude **/src/** .\\test\\tests --recursive",
@@ -11,7 +14,11 @@
     "perf:karma": "karma start karma.conf.performance.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "TODO"
+  },
+  "homepage": "TODO",
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
