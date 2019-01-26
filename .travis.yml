@@ -7,16 +7,16 @@ matrix:
     - name: "browsers linux"
       os: "linux"
       node_js: "11.5.0"
+    - name: "browsers osx"
+      os: "osx"
+      node_js: "11.5.0"
+    - name: "browsers windows"
+      os: "windows"
+      node_js: "11.5.0"
+    - name: "node old"
+      os: "osx"
+      node_js: "6.4.0"
       env: NODE_ONLY=true
-#    - name: "browsers osx"
-#      os: "osx"
-#      node_js: "11.5.0"
-#    - name: "browsers windows"
-#      os: "windows"
-#      node_js: "11.5.0"
-#    - name: "node old"
-#      os: "osx"
-#      node_js: "6.4.0"
 
 sudo: false
 cache: npm
@@ -47,10 +47,10 @@ before_script:
 
 script:
   - if [[ ${NODE_ONLY} == true ]]; then
-      npm run ci;
-    else
       npm run test:mocha;
+    else
+      npm run ci;
     fi
 
 after_script:
-  - "coveralls ./.nyc_output/lcov.info"
+  - "cat .nyc_output/lcov.info | coveralls"
