@@ -99,13 +99,13 @@ module.exports.commonConfig = function (config) {
 
 	if (process.env.TRAVIS) {
 		config.customLaunchers = {
-			Chrome_travis_ci: {
-				base : 'Chrome',
+			ChromeHeadlessNoSandbox: {
+				base : 'ChromeHeadless',
 				flags: ['--no-sandbox']
 			}
 		}
 		config.browsers = [
-			'Chrome_travis_ci',
+			'ChromeHeadlessNoSandbox',
 			'Firefox',
 			// 'IE',
 			'Opera',
