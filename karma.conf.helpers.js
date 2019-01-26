@@ -107,7 +107,7 @@ module.exports.commonConfig = function (config) {
 		config.browsers = [
 			'Chrome_travis_ci',
 			'Firefox',
-			'IE',
+			// 'IE',
 			'Opera',
 			'PhantomJS'
 		]
