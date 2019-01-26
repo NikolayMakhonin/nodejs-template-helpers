@@ -102,11 +102,15 @@ module.exports.commonConfig = function (config) {
 			ChromeHeadlessNoSandbox: {
 				base : 'ChromeHeadless',
 				flags: ['--no-sandbox']
+			},
+			FirefoxHeadless: {
+				base : 'Firefox',
+				flags: ['-headless'],
 			}
 		}
 		config.browsers = [
 			'ChromeHeadlessNoSandbox',
-			'Firefox',
+			'FirefoxHeadless',
 			// 'IE',
 			'Opera',
 			'PhantomJS'

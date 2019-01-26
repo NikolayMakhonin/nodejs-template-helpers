@@ -23,7 +23,7 @@ module.exports = function (config) {
 		files: [
 			// 'node_modules/babel-polyfill/tmp/polyfill.js',
 			helpers.servedPattern(require.resolve('chai/chai')),
-			helpers.servedPattern(helpers.writeTextFile('tmp/karma/chai.js', 'const {assert, expect, should} = chai')),
+			helpers.servedPattern(helpers.writeTextFile('tmp/karma/chai.js', '"use strict"; var assert = chai.assert, expect = chai.expect, should = chai.should;')),
 			helpers.concatJsFiles(
 				'tmp/karma/tests.js',
 				'test/tests/common/**/*.js',

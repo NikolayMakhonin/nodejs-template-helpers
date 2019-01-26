@@ -12,8 +12,8 @@ describe('environment', function () {
 			assert.strictEqual(func1('qwe', [1, 2]), 'qwe 1')
 			assert.strictEqual(func1('qwe', 1, 2), 'qwe 2')
 			assert.strictEqual(func1('qwe'), 'qwe 0')
-			assert.isOk(func1Str.match(/function func1\(p1\)|function\((\w|p1)\)/), `babel is not worked:\r\n${func1Str}`)
-			assert.isOk(func1Str.indexOf('arguments.length') >= 0, `babel is not worked:\r\n${func1Str}`)
+			assert.isOk(func1Str.indexOf('arguments.length') >= 0, `babel is not worked 1:\r\n${func1Str}`)
+			assert.isOk(func1Str.match(/function func1\(p1\)|function *\((\w|p1)\)/), `babel is not worked 2:\r\n${func1Str}`)
 			// console.log(func1.toString());
 			done()
 		})
