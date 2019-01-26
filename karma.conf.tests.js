@@ -13,10 +13,10 @@ module.exports = function (config) {
 	helpers.commonConfig(config)
 
 	config.set({
-		browserNoActivityTimeout: 900000,
+		// browserNoActivityTimeout: 900000,
 		// browserDisconnectTimeout: 900000,
 		// browserSocketTimeout: 900000,
-		captureTimeout          : 900000,
+		// captureTimeout: 900000,
 		// processKillTimeout: 2000,
 
 		// list of files / patterns to load in the browser
@@ -25,11 +25,16 @@ module.exports = function (config) {
 			helpers.servedPattern(require.resolve('chai/chai')),
 			helpers.servedPattern(helpers.writeTextFile('tmp/karma/chai.js', 'const {assert, expect, should} = chai')),
 			helpers.concatJsFiles(
-				'tmp/karma/performance.js',
-				'test/performance/common/**/*.js',
-				'test/performance/browser/**/*.js',
+				'tmp/karma/tests.js',
+				'test/tests/common/**/*.js',
+				'test/tests/browser/**/*.js',
 				'!**/src/**/*.js'
-			)
+			),
+			// ...helpers.watchPatterns(
+			// 	'test/tests/common/**/*.js',
+			// 	'test/tests/browser/**/*.js',
+			// 	'src/**/*.js'
+			// )
 		],
 
 		// list of files / patterns to exclude
@@ -38,7 +43,7 @@ module.exports = function (config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			'tmp/karma/performance.js': ['rollup']
+			'tmp/karma/tests.js': ['rollup']
 		},
 
 		rollupPreprocessor: {
@@ -79,14 +84,14 @@ module.exports = function (config) {
 		// !! not worked in WebStorm
 		// see: https://blog.jetbrains.com/webstorm/2013/10/running-javascript-tests-with-karma-in-webstorm-7/
 		// see: https://blog.jetbrains.com/webstorm/2013/10/webstorm-7-0-1-release-candidate/
-		autoWatch: false,
+		// autoWatch: true,
 
 		// Continuous Integration mode
 		// if true, Karma captures browsers, runs the node and exits
-		singleRun: true,
+		singleRun: false,
 
 		// Concurrency level
 		// how many browser should be started simultaneous
-		concurrency: 1
+		concurrency: Infinity
 	})
 }

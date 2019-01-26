@@ -13,9 +13,15 @@ sudo: false
 cache:
   directories:
     - node_modules
+
+addons:
+  chrome: stable
+  firefox: latest
+
 before_install:
   # Skip updating shrinkwrap / lock
   - "npm config set shrinkwrap false"
+  - "npm install coveralls"
 
   # Setup Node.js version-specific dependencies
   - "test $(echo $TRAVIS_NODE_VERSION | cut -d. -f1) -ge 4 || npm rm --save-dev $(grep -E '\"eslint\\S*\"' package.json | cut -d'\"' -f2)"
@@ -25,8 +31,6 @@ before_install:
   - "test ! -d node_modules || npm rebuild"
 script:
   # Run test script, depending on istanbul install
-  - "test ! -z $(npm -ps ls istanbul) || npm test"
-  - "test   -z $(npm -ps ls istanbul) || npm run-script test-travis"
-  - "test   -z $(npm -ps ls eslint  ) || npm run-script lint"
+  - "npm run coverage"
 after_script:
-  - "test -e ./coverage/lcov.info && npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
+  - "cat ./.nyc_output/node/lcov.info ./.nyc_output/browser/lcov.info | coveralls"
