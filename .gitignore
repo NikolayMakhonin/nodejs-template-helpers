@@ -63,3 +63,4 @@ typings/
 # additional
 dist
 tmp
+/.idea/libraries/Generated_files.xml
