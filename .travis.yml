@@ -9,7 +9,8 @@ node_js:
   - "11.5.0"
   - "6.4.0"
 
-sudo: false
+sudo: required
+dist: trusty
 cache:
   directories:
     - node_modules
@@ -17,8 +18,17 @@ cache:
 addons:
   chrome: stable
   firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 before_install:
+  - "export CHROME_BIN=/usr/bin/google-chrome"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
   # Skip updating shrinkwrap / lock
   - "npm config set shrinkwrap false"
   - "npm install coveralls"
@@ -29,8 +39,7 @@ before_install:
   # Update Node.js modules
   - "test ! -d node_modules || npm prune"
   - "test ! -d node_modules || npm rebuild"
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+
 script:
   # Run test script, depending on istanbul install
   - "npm run coverage"
