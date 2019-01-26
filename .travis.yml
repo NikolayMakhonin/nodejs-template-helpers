@@ -40,6 +40,6 @@ before_script:
 
 script:
   # Run test script, depending on istanbul install
-  - "npm run coverage"
+  - "npm run ci"
 after_script:
-  - "cat ./.nyc_output/node/lcov.info ./.nyc_output/browser/lcov.info | coveralls"
+  - "find ./.nyc_output/ -name 'lcov.info' -exec cat {} \; | coveralls"
