@@ -17,17 +17,11 @@ cache:
 addons:
   chrome: stable
   firefox: latest
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+
+services:
+  - xvfb
 
 before_install:
-  - "export CHROME_BIN=/usr/bin/google-chrome"
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-
   # Skip updating shrinkwrap / lock
   - "npm config set shrinkwrap false"
   - "npm install coveralls"
@@ -38,6 +32,11 @@ before_install:
   # Update Node.js modules
   - "test ! -d node_modules || npm prune"
   - "test ! -d node_modules || npm rebuild"
+  -
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 
 script:
   # Run test script, depending on istanbul install
