@@ -42,4 +42,4 @@ script:
   # Run test script, depending on istanbul install
   - "npm run ci"
 after_script:
-  - "find ./.nyc_output/ -name 'lcov.info' -exec cat {} \; | coveralls"
+  - "coveralls ./.nyc_output/lcov.info"
