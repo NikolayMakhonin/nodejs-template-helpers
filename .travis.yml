@@ -51,6 +51,3 @@ script:
     else
       npm run ci;
     fi
-
-after_script:
-  - "cat .nyc_output/lcov.info | coveralls"

@@ -19,7 +19,7 @@
     "ci:karma": "karma start karma.conf.ci.js",
     "test": "npm run lint && npm run test:mocha && npm run test:karma",
     "coverage": "npm run lint && npm run coverage:mocha && npm run coverage:karma",
-    "ci": "npm run lint && npm run coverage:mocha && npm run ci:karma && ncat .nyc_output/*/**/lcov.info -o .nyc_output/lcov.info"
+    "ci": "npm run lint && npm run coverage:mocha && npm run ci:karma && ncat .nyc_output/*/**/lcov.info | coveralls"
   },
   "author": "",
   "license": "CC0-1.0",
