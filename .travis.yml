@@ -49,7 +49,7 @@ before_script:
 script:
   - |
     node_version=$(node -v);
-    if [[ $node_version >= 11 ]]; then
+    if [[ $node_version -ge 11 ]]; then
       npm run ci;
     else
       npm run test:mocha;
