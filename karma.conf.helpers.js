@@ -110,10 +110,8 @@ module.exports.configCommon = function (config) {
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
 		browsers: ['Chrome'],
-	})
 
-	if (process.env.TRAVIS) {
-		config.customLaunchers = {
+		customLaunchers: {
 			ChromeHeadlessNoSandbox: {
 				base : 'ChromeHeadless',
 				flags: ['--no-sandbox']
@@ -123,6 +121,9 @@ module.exports.configCommon = function (config) {
 				flags: ['-headless'],
 			}
 		}
+	})
+
+	if (process.env.TRAVIS) {
 		config.browsers = [
 			'ChromeHeadlessNoSandbox',
 			'FirefoxHeadless',
@@ -135,10 +136,7 @@ module.exports.configCommon = function (config) {
 
 module.exports.configDetectBrowsers = configDetectBrowsers
 function configDetectBrowsers(config) {
-	delete config.browsers
-
 	config.set({
-
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
 		frameworks: mergeArrays(config.frameworks, ['detectBrowsers']),
@@ -301,6 +299,8 @@ module.exports.configBrowserStack = function (config) {
 
 		customLaunchers,
 
-		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers))
+		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers)),
+
+		plugins: mergeArrays(config.plugins, ['karma-browserstack-launcher'])
 	})
 }

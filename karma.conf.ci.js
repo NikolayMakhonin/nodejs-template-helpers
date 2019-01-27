@@ -12,8 +12,8 @@ const helpers = require('./karma.conf.helpers')
 module.exports = function (config) {
 	helpers.configCommon(config)
 
-	helpers.configTravis(config)
-
+	delete config.browsers
+	// helpers.configTravis(config)
 	helpers.configBrowserStack(config)
 
 	config.set({
