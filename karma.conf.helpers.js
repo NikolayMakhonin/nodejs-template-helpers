@@ -164,12 +164,7 @@ function configDetectBrowsers(config) {
 }
 
 module.exports.configTravis = function (config) {
-	if (process.env.TRAVIS) {
-		configDetectBrowsers(config)
-
-		config.browserStack.name = process.env.TRAVIS_JOB_NUMBER
-		config.browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
-	}
+	configDetectBrowsers(config)
 }
 
 module.exports.configBrowserStack = function (config) {
@@ -232,16 +227,9 @@ module.exports.configBrowserStack = function (config) {
 			os             : 'Windows',
 			os_version     : '10',
 		},
-		Firefox: {
+		Firefox47: {
 			base           : 'BrowserStack',
 			browser        : 'Firefox',
-			browser_version: '47',
-			os             : 'Windows',
-			os_version     : '10',
-		},
-		Opera: {
-			base           : 'BrowserStack',
-			browser        : 'Opera',
 			browser_version: '47',
 			os             : 'Windows',
 			os_version     : '10',
