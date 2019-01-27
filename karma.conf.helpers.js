@@ -280,7 +280,7 @@ module.exports.configBrowserStack = function (config) {
 	const browserStack = {
 		project  : thisPackage.name,
 		username : process.env.BROWSERSTACK_USERNAME,
-		accessKey: 'process.env.BROWSERSTACK_ACCESS_KEY',
+		accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
 	}
 
 	if (process.env.TRAVIS) {
