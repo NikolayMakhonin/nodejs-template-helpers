@@ -9,9 +9,11 @@ const thisPackage = require('./package')
 module.exports.mergeArrays = mergeArrays
 function mergeArrays(...arrays) {
 	const items = []
-	for (let i = arrays.length; i--;) {
+	const arraysLength = arrays.length
+	for (let i = 0; i < arraysLength; i++) {
 		const array = arrays[i]
-		for (let j = array ? array.length : 0; j--;) {
+		const len = array ? array.length : 0
+		for (let j = 0; j < len; j++) {
 			const item = array[j]
 			if (items.indexOf(item) < 0) {
 				items.push(item)
@@ -110,7 +112,7 @@ module.exports.configCommon = function (config) {
 
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['polyfill', 'mocha'],
+		frameworks: ['mocha', 'polyfill'],
 
 		logReporter: {
 			outputPath: 'reports/', // default name is current directory
