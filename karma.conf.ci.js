@@ -10,9 +10,11 @@ const istanbul = require('rollup-plugin-istanbul')
 const helpers = require('./karma.conf.helpers')
 
 module.exports = function (config) {
-	helpers.commonConfig(config)
+	helpers.configCommon(config)
 
-	delete config.browsers
+	helpers.configTravis(config)
+
+	helpers.configBrowserStack(config)
 
 	config.set({
 		// browserNoActivityTimeout: 900000,
@@ -89,33 +91,6 @@ module.exports = function (config) {
 
 		// Concurrency level
 		// how many browser should be started simultaneous
-		concurrency: Infinity,
-
-		// frameworks to use
-		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['detectBrowsers', 'mocha'],
-
-		// configuration
-		detectBrowsers: {
-			// use headless mode, for browsers that support it, default is false
-			preferHeadless: true,
-		},
-
-		plugins: [
-			'karma-chrome-launcher',
-			'karma-mocha',
-			'karma-rollup-preprocessor',
-			'karma-coverage',
-
-			'karma-chrome-launcher',
-			'karma-edge-launcher',
-			'karma-firefox-launcher',
-			'karma-ie-launcher',
-			'karma-safari-launcher',
-			'karma-safaritechpreview-launcher',
-			'karma-opera-launcher',
-			'karma-phantomjs-launcher',
-			'karma-detect-browsers'
-		]
+		concurrency: Infinity
 	})
 }

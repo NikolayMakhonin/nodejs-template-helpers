@@ -10,7 +10,7 @@ const istanbul = require('rollup-plugin-istanbul')
 const helpers = require('./karma.conf.helpers')
 
 module.exports = function (config) {
-	helpers.commonConfig(config)
+	helpers.configCommon(config)
 
 	config.set({
 		// browserNoActivityTimeout: 900000,

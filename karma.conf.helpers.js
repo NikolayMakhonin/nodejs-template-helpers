@@ -4,7 +4,23 @@
 const globby = require('globby')
 const path = require('path')
 const fs = require('fs')
+const thisPackage = require('./package')
 
+function mergeArrays(...arrays) {
+	const items = {}
+	for (let i = arrays.length; i--;) {
+		const array = arrays[i]
+		for (let j = array.length; j--;) {
+			const item = array[j]
+			if (!items[item]) {
+				items[item] = true
+			}
+		}
+	}
+	return Object.keys(items)
+}
+
+module.exports.writeTextFile = writeTextFile
 function writeTextFile(outFilePath, text) {
 	const dir = path.dirname(outFilePath)
 
@@ -16,7 +32,6 @@ function writeTextFile(outFilePath, text) {
 
 	return outFilePath
 }
-module.exports.writeTextFile = writeTextFile
 
 module.exports.concatJsFiles = function concatJsFiles(outFilePath, ...globbyPatterns) {
 	const dir = path.dirname(outFilePath)
@@ -54,7 +69,7 @@ module.exports.watchPatterns = function (...globbyPatterns) {
 		}))
 }
 
-module.exports.commonConfig = function (config) {
+module.exports.configCommon = function (config) {
 	config.set({
 		// base path that will be used to resolve all patterns (eg. files, exclude)
 		basePath: '',
@@ -116,4 +131,188 @@ module.exports.commonConfig = function (config) {
 			'PhantomJS'
 		]
 	}
+}
+
+module.exports.configDetectBrowsers = configDetectBrowsers
+function configDetectBrowsers(config) {
+	delete config.browsers
+
+	config.set({
+
+		// frameworks to use
+		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+		frameworks: mergeArrays(config.frameworks, ['detectBrowsers']),
+
+		// configuration
+		detectBrowsers: {
+			// use headless mode, for browsers that support it, default is false
+			preferHeadless: true,
+		},
+
+		plugins: mergeArrays(config.plugins, [
+			'karma-chrome-launcher',
+			'karma-edge-launcher',
+			'karma-firefox-launcher',
+			'karma-ie-launcher',
+			'karma-safari-launcher',
+			'karma-safaritechpreview-launcher',
+			'karma-opera-launcher',
+			'karma-phantomjs-launcher',
+			'karma-detect-browsers'
+		])
+	})
+}
+
+module.exports.configTravis = function (config) {
+	if (process.env.TRAVIS) {
+		configDetectBrowsers(config)
+
+		config.browserStack.name = process.env.TRAVIS_JOB_NUMBER
+		config.browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
+	}
+}
+
+module.exports.configBrowserStack = function (config) {
+	const customLaunchers = {
+		// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
+		// browser statistics: http://gs.statcounter.com/browser-version-market-share
+		Android4_4: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Galaxy Tab 4',
+			os_version: '4.4',
+		},
+		Android6: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Galaxy S7',
+			os_version: '6.0',
+		},
+		Android7: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Galaxy S8',
+			os_version: '7.0',
+		},
+		Android8: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Galaxy S9',
+			os_version: '8.0',
+		},
+		iOS10_3: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone 7',
+			os_version: '10.3',
+		},
+		iOS11: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone 8',
+			os_version: '11.0',
+		},
+		iOS12: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone XS',
+			os_version: '12.1',
+		},
+		Chrome48: {
+			base           : 'BrowserStack',
+			browser        : 'Chrome',
+			browser_version: '48',
+			os             : 'Windows',
+			os_version     : '10',
+		},
+		Firefox: {
+			base           : 'BrowserStack',
+			browser        : 'Firefox',
+			browser_version: '47',
+			os             : 'Windows',
+			os_version     : '10',
+		},
+		Opera: {
+			base           : 'BrowserStack',
+			browser        : 'Opera',
+			browser_version: '47',
+			os             : 'Windows',
+			os_version     : '10',
+		},
+		Safari10_1: {
+			base           : 'BrowserStack',
+			browser        : 'Safari',
+			browser_version: '10.1',
+			os             : 'OS X',
+			os_version     : 'Sierra',
+		},
+		Opera12_15: {
+			base           : 'BrowserStack',
+			browser        : 'Opera',
+			browser_version: '12.15',
+			os             : 'OS X',
+			os_version     : 'Sierra',
+		},
+		IE11: {
+			base           : 'BrowserStack',
+			browser        : 'IE',
+			browser_version: '11',
+			os             : 'Windows',
+			os_version     : '10',
+		},
+		IE10: {
+			base           : 'BrowserStack',
+			browser        : 'IE',
+			browser_version: '10',
+			os             : 'Windows',
+			os_version     : '8',
+		},
+		IE9: {
+			base           : 'BrowserStack',
+			browser        : 'IE',
+			browser_version: '9',
+			os             : 'Windows',
+			os_version     : '7',
+		},
+		Edge: {
+			base           : 'BrowserStack',
+			browser        : 'Edge',
+			browser_version: '15',
+			os             : 'Windows',
+			os_version     : '10',
+		}
+	}
+
+	// see: https://github.com/karma-runner/karma-browserstack-launcher#global-options
+	const browserStack = {
+		project  : thisPackage.name,
+		username : process.env.BROWSER_STACK_USERNAME,
+		accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
+	}
+
+	if (process.env.TRAVIS) {
+		browserStack.name = process.env.TRAVIS_JOB_NUMBER
+		browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
+		browserStack.tunnelIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
+		browserStack.startTunnel = false
+	}
+
+	config.set({
+		// frameworks to use
+		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+		// frameworks: mergeArrays(config.frameworks, ['browserStack']),
+
+		browserStack,
+
+		customLaunchers,
+
+		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers))
+	})
 }

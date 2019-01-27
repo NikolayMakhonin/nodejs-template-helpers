@@ -10,7 +10,7 @@ const {uglify} = require('rollup-plugin-uglify')
 const helpers = require('./karma.conf.helpers')
 
 module.exports = function (config) {
-	helpers.commonConfig(config)
+	helpers.configCommon(config)
 
 	config.set({
 		// browserNoActivityTimeout: 900000,
