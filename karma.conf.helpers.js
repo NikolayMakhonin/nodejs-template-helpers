@@ -50,7 +50,8 @@ module.exports.concatJsFiles = function concatJsFiles(outFilePath, ...globbyPatt
 	return writeTextFile(outFilePath, code)
 }
 
-module.exports.servedPattern = function (file) {
+module.exports.servedPattern = servedPattern
+function servedPattern(file) {
 	return {
 		pattern : file,
 		included: true,
@@ -72,12 +73,27 @@ module.exports.watchPatterns = function (...globbyPatterns) {
 
 module.exports.configCommon = function (config) {
 	function polyfill(files) {
-		files.unshift({
-			pattern : require.resolve('babel-polyfill/dist/polyfill'),
-			included: true,
-			served  : true,
-			watched : false
-		})
+		files.unshift(servedPattern(writeTextFile(
+			'tmp/karma/polyfill.js',
+			"'use strict'; "
+			+ '(function () {\n'
+			+ '\tif (typeof _babelPolyfill !== \'undefined\') return;'
+			+ '\tconst log = []\n'
+			+ "\tif (typeof describe !== 'undefined') {\n"
+			+ "\t\tlog.push('describe: ' + describe)\n"
+			+ '\t}\n'
+			+ "\tif (typeof it !== 'undefined') {\n"
+			+ "\t\tlog.push('it: ' + it)\n"
+			+ '\t}\n'
+			+ "\tif (typeof test !== 'undefined') {\n"
+			+ "\t\tlog.push('test: ' + test)\n"
+			+ '\t}\n'
+			+ '\tif (log.length) {\n'
+			+ "\t\tthrow new Error('polyfill was not run first:\\n' + log.join('\\n'))\n"
+			+ '\t}\n'
+			+ "\trequire('babel-polyfill/dist/polyfill')\n"
+			+ '})()\n'
+		)))
 	}
 	polyfill.$inject = ['config.files']
 
@@ -101,7 +117,7 @@ module.exports.configCommon = function (config) {
 			'karma-coverage',
 			{
 				'framework:polyfill': ['factory', polyfill]
-			}
+			},
 		],
 
 		// optionally, configure the reporter

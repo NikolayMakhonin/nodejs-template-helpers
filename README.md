@@ -22,6 +22,15 @@ Module usage:
   ...
 ```
 
+# Testing
+
+<!-- Required for open source BrowserStack plan -->
+<!-- https://www.browserstack.com/open-source?ref=pricing -->
+
+Module has been tested on Travis and BrowserStack
+
+[![BrowserStack](https://i.imgur.com/cOdhMed.png)](https://www.browserstack.com/)
+
 # License
 
 [CC0-1.0](LICENSE)
@@ -36,3 +45,4 @@ Module usage:
 [coveralls-url]: https://coveralls.io/github/NikolayMakhonin/nodejs-template-helpers
 [downloads-image]: https://img.shields.io/npm/dm/nodejs-template-helpers.svg
 [downloads-url]: https://npmjs.org/package/nodejs-template-helpers
+[npm-url]: https://npmjs.org/package/nodejs-template-helpers
