@@ -279,8 +279,8 @@ module.exports.configBrowserStack = function (config) {
 	// see: https://github.com/karma-runner/karma-browserstack-launcher#global-options
 	const browserStack = {
 		project  : thisPackage.name,
-		username : process.env.BROWSER_STACK_USERNAME,
-		accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
+		username : process.env.BROWSERSTACK_USERNAME,
+		accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
 	}
 
 	if (process.env.TRAVIS) {
