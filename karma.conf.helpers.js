@@ -73,27 +73,34 @@ module.exports.watchPatterns = function (...globbyPatterns) {
 
 module.exports.configCommon = function (config) {
 	function polyfill(files) {
-		files.unshift(servedPattern(writeTextFile(
-			'tmp/karma/polyfill.js',
-			"'use strict'; "
-			+ '(function () {\n'
-			+ '\tif (typeof _babelPolyfill !== \'undefined\') return;'
-			+ '\tconst log = []\n'
-			+ "\tif (typeof describe !== 'undefined') {\n"
-			+ "\t\tlog.push('describe: ' + describe)\n"
-			+ '\t}\n'
-			+ "\tif (typeof it !== 'undefined') {\n"
-			+ "\t\tlog.push('it: ' + it)\n"
-			+ '\t}\n'
-			+ "\tif (typeof test !== 'undefined') {\n"
-			+ "\t\tlog.push('test: ' + test)\n"
-			+ '\t}\n'
-			+ '\tif (log.length) {\n'
-			+ "\t\tthrow new Error('polyfill was not run first:\\n' + log.join('\\n'))\n"
-			+ '\t}\n'
-			+ "\trequire('babel-polyfill/dist/polyfill')\n"
-			+ '})()\n'
-		)))
+		files.unshift(...[
+			servedPattern(writeTextFile(
+				path.resolve('./tmp/karma/polyfill_before.js'),
+				"'use strict'; \n"
+				+ '(function () {\n'
+				// + "\tif (typeof _babelPolyfill !== 'undefined') return;\n"
+				+ '\tvar log = [];\n'
+				+ "\tif (typeof describe !== 'undefined') {\n"
+				+ "\t\tlog.push('describe: ' + describe);\n"
+				+ '\t}\n'
+				+ "\tif (typeof it !== 'undefined') {\n"
+				+ "\t\tlog.push('it: ' + it);\n"
+				+ '\t}\n'
+				+ "\tif (typeof test !== 'undefined') {\n"
+				+ "\t\tlog.push('test: ' + test);\n"
+				+ '\t}\n'
+				+ '\tif (log.length) {\n'
+				+ "\t\tthrow new Error('polyfill was not run first:\\n' + log.join('\\n'));\n"
+				+ '\t}\n'
+				+ "\tconsole.log('karma polyfill activating...');\n"
+				+ '})();\n'
+			)),
+			servedPattern(require.resolve('babel-polyfill/dist/polyfill')),
+			servedPattern(writeTextFile(
+				path.resolve('./tmp/karma/polyfill_after.js'),
+				"console.log('karma polyfill activated!');"
+			))
+		])
 	}
 	polyfill.$inject = ['config.files']
 
