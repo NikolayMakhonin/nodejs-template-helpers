@@ -283,12 +283,12 @@ module.exports.configBrowserStack = function (config) {
 		accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
 	}
 
-	if (process.env.TRAVIS) {
-		browserStack.name = process.env.TRAVIS_JOB_NUMBER
-		browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
-		browserStack.tunnelIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
-		browserStack.startTunnel = false
-	}
+	// if (process.env.TRAVIS) {
+	// 	browserStack.name = process.env.TRAVIS_JOB_NUMBER
+	// 	browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
+	// 	browserStack.tunnelIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
+	// 	browserStack.startTunnel = false
+	// }
 
 	config.set({
 		// frameworks to use
