@@ -25,7 +25,7 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			// 'node_modules/babel-polyfill/tmp/polyfill.js',
+			helpers.servedPattern(require.resolve('babel-polyfill/dist/polyfill')),
 			helpers.servedPattern(require.resolve('chai/chai')),
 			helpers.servedPattern(helpers.writeTextFile('tmp/karma/chai.js', '"use strict"; var assert = chai.assert, expect = chai.expect, should = chai.should;')),
 			helpers.concatJsFiles(
