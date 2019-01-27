@@ -10,7 +10,7 @@ function mergeArrays(...arrays) {
 	const items = {}
 	for (let i = arrays.length; i--;) {
 		const array = arrays[i]
-		for (let j = array.length; j--;) {
+		for (let j = array ? array.length : 0; j--;) {
 			const item = array[j]
 			if (!items[item]) {
 				items[item] = true
