@@ -13,6 +13,7 @@ module.exports = function (config) {
 	helpers.configCommon(config)
 
 	delete config.browsers
+	// helpers.configDetectBrowsers(config)
 	// helpers.configTravis(config)
 	helpers.configBrowserStack(config)
 
@@ -25,7 +26,6 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			helpers.servedPattern(require.resolve('babel-polyfill/dist/polyfill')),
 			helpers.servedPattern(require.resolve('chai/chai')),
 			helpers.servedPattern(helpers.writeTextFile('tmp/karma/chai.js', '"use strict"; var assert = chai.assert, expect = chai.expect, should = chai.should;')),
 			helpers.concatJsFiles(

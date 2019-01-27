@@ -6,18 +6,19 @@ const path = require('path')
 const fs = require('fs')
 const thisPackage = require('./package')
 
+module.exports.mergeArrays = mergeArrays
 function mergeArrays(...arrays) {
-	const items = {}
+	const items = []
 	for (let i = arrays.length; i--;) {
 		const array = arrays[i]
 		for (let j = array ? array.length : 0; j--;) {
 			const item = array[j]
-			if (!items[item]) {
-				items[item] = true
+			if (items.indexOf(item) < 0) {
+				items.push(item)
 			}
 		}
 	}
-	return Object.keys(items)
+	return items
 }
 
 module.exports.writeTextFile = writeTextFile
@@ -70,13 +71,23 @@ module.exports.watchPatterns = function (...globbyPatterns) {
 }
 
 module.exports.configCommon = function (config) {
+	function polyfill(files) {
+		files.unshift({
+			pattern : require.resolve('babel-polyfill/dist/polyfill'),
+			included: true,
+			served  : true,
+			watched : false
+		})
+	}
+	polyfill.$inject = ['config.files']
+
 	config.set({
 		// base path that will be used to resolve all patterns (eg. files, exclude)
 		basePath: '',
 
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['mocha'],
+		frameworks: ['polyfill', 'mocha'],
 
 		logReporter: {
 			outputPath: 'reports/', // default name is current directory
@@ -87,7 +98,10 @@ module.exports.configCommon = function (config) {
 			'karma-chrome-launcher',
 			'karma-mocha',
 			'karma-rollup-preprocessor',
-			'karma-coverage'
+			'karma-coverage',
+			{
+				'framework:polyfill': ['factory', polyfill]
+			}
 		],
 
 		// optionally, configure the reporter
@@ -291,10 +305,6 @@ module.exports.configBrowserStack = function (config) {
 	// }
 
 	config.set({
-		// frameworks to use
-		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		// frameworks: mergeArrays(config.frameworks, ['browserStack']),
-
 		browserStack,
 
 		customLaunchers,

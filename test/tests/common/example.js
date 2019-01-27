@@ -1,4 +1,3 @@
-console.log(JSON.stringify(assert))
 import example from '../../../src/example'
 
 describe('test', function () {
