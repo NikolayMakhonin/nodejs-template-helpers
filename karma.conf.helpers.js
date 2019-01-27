@@ -283,6 +283,9 @@ module.exports.configBrowserStack = function (config) {
 		accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
 	}
 
+	const b = browserStack
+	console.log(JSON.stringify(b))
+
 	// if (process.env.TRAVIS) {
 	// 	browserStack.name = process.env.TRAVIS_JOB_NUMBER
 	// 	browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
