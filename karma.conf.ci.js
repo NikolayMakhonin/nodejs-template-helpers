@@ -14,8 +14,8 @@ module.exports = function (config) {
 
 	delete config.browsers
 	// helpers.configDetectBrowsers(config)
-	helpers.configTravis(config)
-	// helpers.configBrowserStack(config)
+	helpers.configTravisBrowsers(config)
+	helpers.configBrowserStack(config)
 
 	config.set({
 		// browserNoActivityTimeout: 900000,

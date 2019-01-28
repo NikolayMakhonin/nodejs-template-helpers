@@ -200,7 +200,7 @@ function configDetectBrowsers(config) {
 	})
 }
 
-module.exports.configTravis = function (config) {
+module.exports.configTravisBrowsers = function (config) {
 	configDetectBrowsers(config)
 }
 
@@ -208,26 +208,29 @@ module.exports.configBrowserStack = function (config) {
 	const customLaunchers = {
 		// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
 		// browser statistics: http://gs.statcounter.com/browser-version-market-share
-		// Android4_4: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'android',
-		// 	os        : 'android',
-		// 	device    : 'Galaxy Tab 4',
-		// 	os_version: '4.4',
-		// },
-		// Android6: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'android',
-		// 	os        : 'android',
-		// 	device    : 'Galaxy S7',
-		// 	os_version: '6.0',
-		// },
+		Android4_4: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Galaxy Tab 4',
+			os_version: '4.4',
+			realMobile: true
+		},
+		Android6: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Galaxy S7',
+			os_version: '6.0',
+			realMobile: true
+		},
 		// Android7: {
 		// 	base      : 'BrowserStack',
 		// 	browser   : 'android',
 		// 	os        : 'android',
 		// 	device    : 'Galaxy S8',
 		// 	os_version: '7.0',
+		// 	realMobile: true
 		// },
 		// Android8: {
 		// 	base      : 'BrowserStack',
@@ -235,28 +238,32 @@ module.exports.configBrowserStack = function (config) {
 		// 	os        : 'android',
 		// 	device    : 'Galaxy S9',
 		// 	os_version: '8.0',
+		// 	realMobile: true
 		// },
-		// iOS10_3: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'iOS',
-		// 	os        : 'iOS',
-		// 	device    : 'iPhone 7',
-		// 	os_version: '10.3',
-		// },
-		// iOS11: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'iOS',
-		// 	os        : 'iOS',
-		// 	device    : 'iPhone 8',
-		// 	os_version: '11.0',
-		// },
-		// iOS12: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'iOS',
-		// 	os        : 'iOS',
-		// 	device    : 'iPhone XS',
-		// 	os_version: '12.1',
-		// },
+		iOS10_3: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone 7',
+			os_version: '10.3',
+			realMobile: true
+		},
+		iOS11: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone 8',
+			os_version: '11.0',
+			realMobile: true
+		},
+		iOS12: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone XS',
+			os_version: '12.1',
+			realMobile: true
+		},
 		Chrome48: {
 			base           : 'BrowserStack',
 			browser        : 'Chrome',
@@ -271,13 +278,13 @@ module.exports.configBrowserStack = function (config) {
 			os             : 'Windows',
 			os_version     : '10',
 		},
-		// Safari10_1: {
-		// 	base           : 'BrowserStack',
-		// 	browser        : 'Safari',
-		// 	browser_version: '10.1',
-		// 	os             : 'OS X',
-		// 	os_version     : 'Sierra',
-		// },
+		Safari10_1: {
+			base           : 'BrowserStack',
+			browser        : 'Safari',
+			browser_version: '10.1',
+			os             : 'OS X',
+			os_version     : 'Sierra',
+		},
 		Opera12_15: {
 			base           : 'BrowserStack',
 			browser        : 'Opera',
@@ -312,6 +319,13 @@ module.exports.configBrowserStack = function (config) {
 			browser_version: '15',
 			os             : 'Windows',
 			os_version     : '10',
+		},
+		Yandex: {
+			base           : 'BrowserStack',
+			browser        : 'Yandex',
+			browser_version: '14.12',
+			os             : 'Windows',
+			os_version     : '10',
 		}
 	}
 
@@ -320,6 +334,7 @@ module.exports.configBrowserStack = function (config) {
 		project  : thisPackage.name,
 		username : process.env.BROWSERSTACK_USERNAME.replace(/-travis$/, ''),
 		accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
+		video    : false
 	}
 
 	// if (process.env.TRAVIS) {
