@@ -212,7 +212,7 @@ module.exports.configBrowserStack = function (config) {
 			base      : 'BrowserStack',
 			browser   : 'android',
 			os        : 'android',
-			device    : 'Galaxy Tab 4',
+			device    : 'Samsung Galaxy Tab 4',
 			os_version: '4.4',
 			realMobile: true
 		},
@@ -220,7 +220,7 @@ module.exports.configBrowserStack = function (config) {
 			base      : 'BrowserStack',
 			browser   : 'android',
 			os        : 'android',
-			device    : 'Galaxy S7',
+			device    : 'Samsung Galaxy S7',
 			os_version: '6.0',
 			realMobile: true
 		},
@@ -228,7 +228,7 @@ module.exports.configBrowserStack = function (config) {
 		// 	base      : 'BrowserStack',
 		// 	browser   : 'android',
 		// 	os        : 'android',
-		// 	device    : 'Galaxy S8',
+		// 	device    : 'Samsung Galaxy S8',
 		// 	os_version: '7.0',
 		// 	realMobile: true
 		// },
@@ -236,7 +236,7 @@ module.exports.configBrowserStack = function (config) {
 		// 	base      : 'BrowserStack',
 		// 	browser   : 'android',
 		// 	os        : 'android',
-		// 	device    : 'Galaxy S9',
+		// 	device    : 'Samsung Galaxy S9',
 		// 	os_version: '8.0',
 		// 	realMobile: true
 		// },
