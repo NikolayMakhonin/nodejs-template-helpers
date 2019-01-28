@@ -29,7 +29,41 @@ Module usage:
 
 Module has been tested on Travis and BrowserStack
 
+## BrowserStack
+
+You can see your user name / access key here:
+https://www.browserstack.com/accounts/settings
+
+### Local
+
+For use BrowserStack locally you can set these environment variables:
+
+For Windows users:
+```bash
+setx BROWSERSTACK_USERNAME "your user name"
+setx BROWSERSTACK_ACCESS_KEY "your access key"
+```
+
+### Travis
+
+And you should set your user name and encrypted access key to the .travis.yml
+
+You shoud generate encrypted access key for each repository.
+
+See: https://docs.travis-ci.com/user/encryption-keys
+```yml
+addons:
+  browserstack:
+    username: "your user name"
+    access_key:
+      secure: "your encrypter access key"
+```
+
+---
+
 [![BrowserStack](https://i.imgur.com/cOdhMed.png)](https://www.browserstack.com/)
+
+---
 
 # License
 
