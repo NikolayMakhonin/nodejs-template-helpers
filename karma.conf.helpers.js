@@ -205,6 +205,8 @@ module.exports.configTravisBrowsers = function (config) {
 }
 
 module.exports.configBrowserStack = function (config) {
+	// const IntellijReporter = require('L:\\Program Files\\JetBrains\\WebStorm 2018.3\\plugins\\js-karma\\js_reporter\\karma-intellij\\lib\\intellijReporter.js')
+
 	const customLaunchers = {
 		// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
 		// browser statistics: http://gs.statcounter.com/browser-version-market-share
@@ -329,12 +331,22 @@ module.exports.configBrowserStack = function (config) {
 		}
 	}
 
+	const id = new Date().getTime().toString(36)
 	// see: https://github.com/karma-runner/karma-browserstack-launcher#global-options
 	const browserStack = {
+		build  	 : 'Local - ' + id,
+		name   	 : 'Local',
+		// localIdentifier: id,
+		// tunnelIdentifier: id,
 		project  : thisPackage.name,
 		username : process.env.BROWSERSTACK_USERNAME.replace(/-travis$/, ''),
 		accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
 		video    : false
+	}
+
+	if (process.env.TRAVIS) {
+		delete browserStack.build
+		delete browserStack.name
 	}
 
 	// if (process.env.TRAVIS) {
@@ -343,14 +355,52 @@ module.exports.configBrowserStack = function (config) {
 	// 	browserStack.tunnelIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
 	// 	browserStack.startTunnel = false
 	// }
+	// function killBrowsersAfterComplete(launcher, capturedBrowsers, executor, done) {
+	// 	this.on('browser_complete_with_no_more_retries', function (completedBrowser) {
+	// 		//singleRunDoneBrowsers[completedBrowser.id] = true
+	//
+	// 		if (launcher.kill(completedBrowser.id)) {
+	// 			// workaround to supress "disconnect" warning
+	// 			completedBrowser.state = Browser.STATE_DISCONNECTED
+	// 		}
+	//
+	// 		emitRunCompleteIfAllBrowsersDone()
+	// 	})
+	// }
+	// killBrowsersAfterComplete.$inject = ['launcher', 'capturedBrowsers', 'executor', 'done']
 
 	config.set({
 		browserStack,
 
 		customLaunchers,
 
-		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers)),
+		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers).slice(0, 1)), // DEBUG
+		// browsers: mergeArrays(config.browsers, Object.keys(customLaunchers)),
 
-		plugins: mergeArrays(config.plugins, ['karma-browserstack-launcher'])
+		plugins: mergeArrays(config.plugins, [
+			'karma-browserstack-launcher',
+			// {
+			// 	'framework:killBrowsersAfterComplete': ['factory', killBrowsersAfterComplete]
+			// }
+		]),
+
+		browserConsoleLogOptions: {
+			level   : 'debug',
+			terminal: true
+		},
+
+		logLevel: config.LOG_DEBUG
+	})
+
+	// delete config.autoWatch
+	// Object.defineProperty(config, 'autoWatch', {
+	// 	value   : false,
+	// 	writable: false
+	// })
+	//
+	delete config.singleRun
+	Object.defineProperty(config, 'singleRun', {
+		value   : true,
+		writable: false
 	})
 }

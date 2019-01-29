@@ -117,8 +117,8 @@ function removeEqualStart(s1, s2) {
 }
 
 const {s1: relativeInput, s2: relativeOutput} = removeEqualStart(fileInput, fileOutput)
-if (!relativeOutput.match(/^dist[\\/]/)) {
-	throw new Error(`fileOutput is not in ./dist: ${relativeOutput}`)
+if (!relativeOutput.match(/^tmp[\\/]/)) {
+	throw new Error(`fileOutput is not in ./tmp: ${relativeOutput}`)
 }
 
 console.log(`js watcher transform: ${relativeInput} => ${relativeOutput}`)
