@@ -334,6 +334,8 @@ module.exports.configBrowserStack = function (config) {
 	config.set({
 		captureTimeout: 600000,
 
+		browserNoActivityTimeout: 600000,
+
 		browserStack,
 
 		customLaunchers,
