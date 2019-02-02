@@ -44,7 +44,7 @@ setx BROWSERSTACK_USERNAME "your user name"
 setx BROWSERSTACK_ACCESS_KEY "your access key"
 ```
 
-**Attention! BrowserStack tests not worked in WebStorm. You should run tests from console.**
+**Attention! BrowserStack tests does not work in WebStorm (and this is an unsolvable problem). You should run tests from console.**
 
 ### Travis
 
