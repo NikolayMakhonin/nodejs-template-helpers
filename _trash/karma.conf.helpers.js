@@ -6,8 +6,8 @@ const path = require('path')
 const fs = require('fs')
 const thisPackage = require('./package')
 
-module.exports.concatArrays = concatArrays
-function concatArrays(...arrays) {
+module.exports.mergeArrays = mergeArrays
+function mergeArrays(...arrays) {
 	const items = []
 	const arraysLength = arrays.length
 	for (let i = 0; i < arraysLength; i++) {
@@ -76,7 +76,6 @@ module.exports.watchPatterns = function (...globbyPatterns) {
 module.exports.configCommon = function (config) {
 	function polyfill(files) {
 		files.unshift(...[
-			// Check if polyfill load first
 			servedPattern(writeTextFile(
 				path.resolve('./tmp/karma/polyfill_before.js'),
 				"'use strict'; \n"
@@ -98,7 +97,6 @@ module.exports.configCommon = function (config) {
 				+ "\tconsole.log('karma polyfill activating...');\n"
 				+ '})();\n'
 			)),
-			// Load polyfill
 			servedPattern(require.resolve('babel-polyfill/dist/polyfill')),
 			servedPattern(writeTextFile(
 				path.resolve('./tmp/karma/polyfill_after.js'),
@@ -150,15 +148,29 @@ module.exports.configCommon = function (config) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['ChromeHeadlessNoSandbox'],
+		browsers: ['Chrome'],
 
 		customLaunchers: {
 			ChromeHeadlessNoSandbox: {
 				base : 'ChromeHeadless',
 				flags: ['--no-sandbox']
+			},
+			FirefoxHeadless: {
+				base : 'Firefox',
+				flags: ['-headless'],
 			}
 		}
 	})
+
+	if (process.env.TRAVIS) {
+		config.browsers = [
+			'ChromeHeadlessNoSandbox',
+			'FirefoxHeadless',
+			// 'IE',
+			'Opera',
+			'PhantomJS'
+		]
+	}
 }
 
 module.exports.configDetectBrowsers = configDetectBrowsers
@@ -166,7 +178,7 @@ function configDetectBrowsers(config) {
 	config.set({
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: concatArrays(config.frameworks, ['detectBrowsers']),
+		frameworks: mergeArrays(config.frameworks, ['detectBrowsers']),
 
 		// configuration
 		detectBrowsers: {
@@ -174,7 +186,7 @@ function configDetectBrowsers(config) {
 			preferHeadless: true,
 		},
 
-		plugins: concatArrays(config.plugins, [
+		plugins: mergeArrays(config.plugins, [
 			'karma-chrome-launcher',
 			'karma-edge-launcher',
 			'karma-firefox-launcher',
@@ -188,7 +200,13 @@ function configDetectBrowsers(config) {
 	})
 }
 
+module.exports.configTravisBrowsers = function (config) {
+	configDetectBrowsers(config)
+}
+
 module.exports.configBrowserStack = function (config) {
+	// const IntellijReporter = require('L:\\Program Files\\JetBrains\\WebStorm 2018.3\\plugins\\js-karma\\js_reporter\\karma-intellij\\lib\\intellijReporter.js')
+
 	const customLaunchers = {
 		// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
 		// browser statistics: http://gs.statcounter.com/browser-version-market-share
@@ -331,16 +349,42 @@ module.exports.configBrowserStack = function (config) {
 		delete browserStack.name
 	}
 
+	// if (process.env.TRAVIS) {
+	// 	browserStack.name = process.env.TRAVIS_JOB_NUMBER
+	// 	browserStack.build = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
+	// 	browserStack.tunnelIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
+	// 	browserStack.startTunnel = false
+	// }
+	// function killBrowsersAfterComplete(launcher, capturedBrowsers, executor, done) {
+	// 	this.on('browser_complete_with_no_more_retries', function (completedBrowser) {
+	// 		//singleRunDoneBrowsers[completedBrowser.id] = true
+	//
+	// 		if (launcher.kill(completedBrowser.id)) {
+	// 			// workaround to supress "disconnect" warning
+	// 			completedBrowser.state = Browser.STATE_DISCONNECTED
+	// 		}
+	//
+	// 		emitRunCompleteIfAllBrowsersDone()
+	// 	})
+	// }
+	// killBrowsersAfterComplete.$inject = ['launcher', 'capturedBrowsers', 'executor', 'done']
+
 	config.set({
-		captureTimeout: 600000,
+		captureTimeout: 300000,
 
 		browserStack,
 
 		customLaunchers,
 
-		browsers: concatArrays(config.browsers, Object.keys(customLaunchers)),
+		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers).slice(0, 10)), // DEBUG
+		// browsers: concatArrays(config.browsers, Object.keys(customLaunchers)),
 
-		plugins: concatArrays(config.plugins, ['karma-browserstack-launcher']),
+		plugins: mergeArrays(config.plugins, [
+			'karma-browserstack-launcher',
+			// {
+			// 	'framework:killBrowsersAfterComplete': ['factory', killBrowsersAfterComplete]
+			// }
+		]),
 
 		browserConsoleLogOptions: {
 			level   : 'debug',
@@ -350,11 +394,43 @@ module.exports.configBrowserStack = function (config) {
 		logLevel: config.LOG_DEBUG
 	})
 
-	// disable singleRun
+	fixBrowserStackWebStormProblems(config)
+}
+
+function fixBrowserStackWebStormProblems(config) {
+	// Do not allow WebStorm to disable singleRun
 
 	delete config.singleRun
 	Object.defineProperty(config, 'singleRun', {
 		value   : true,
 		writable: false
 	})
+
+	// Disable 2 lines in browser.execute function:
+	// (see file karma/lib/browser.js)
+	// execute (config) {
+	// 	DISABLE: this.activeSockets.forEach((socket) => socket.emit('execute', config))
+	// 	DISABLE: this.setState(CONFIGURING)
+	// 	this.refreshNoActivityTimeout()
+	// }
+
+	// eslint-disable-next-line global-require
+	const Browser = require('karma/lib/browser')
+
+	// You should not not change variable names and comments. This is needed for injects.
+	Browser.factory = function (
+		id, fullName, /* capturedBrowsers */ collection, emitter, socket, timer,
+		/* config.browserDisconnectTimeout */ disconnectDelay,
+		/* config.browserNoActivityTimeout */ noActivityTimeout
+	) {
+		const browser = new Browser(id, fullName, collection, emitter, socket, timer, disconnectDelay, noActivityTimeout)
+
+		if (browser.execute) {
+			browser.execute = function () {
+				this.refreshNoActivityTimeout()
+			}
+			console.log('Fix BrowserStack WebStorm problems')
+		}
+		return browser
+	}
 }

@@ -1,4 +1,4 @@
-/* eslint-disable prefer-template,no-sync */
+/* eslint-disable prefer-template,no-sync,no-process-env */
 // Karma configuration
 // const globals = require('rollup-plugin-node-globals')
 // const builtins = require('rollup-plugin-node-builtins')
@@ -12,10 +12,14 @@ const helpers = require('./karma.conf.helpers')
 module.exports = function (config) {
 	helpers.configCommon(config)
 
-	delete config.browsers
-	// helpers.configDetectBrowsers(config)
-	// helpers.configTravisBrowsers(config)
-	helpers.configBrowserStack(config)
+	if (process.env.TRAVIS) {
+		delete config.browsers
+		helpers.configDetectBrowsers(config)
+		helpers.configBrowserStack(config)
+	} else {
+		delete config.browsers
+		helpers.configDetectBrowsers(config)
+	}
 
 	config.set({
 		// browserNoActivityTimeout: 900000,
