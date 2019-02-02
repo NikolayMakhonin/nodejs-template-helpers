@@ -53,12 +53,17 @@ And you should set your user name and encrypted access key to the .travis.yml
 You shoud generate encrypted access key for each repository.
 
 See: https://docs.travis-ci.com/user/encryption-keys
+```bash
+travis encrypt SOMEVAR="secretvalue" > key.txt
+```
+
+
 ```yml
 addons:
   browserstack:
     username: "your user name"
     access_key:
-      secure: "your encrypter access key"
+      secure: "your encrypted access key"
 ```
 
 ---
