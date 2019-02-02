@@ -370,11 +370,13 @@ module.exports.configBrowserStack = function (config) {
 	// killBrowsersAfterComplete.$inject = ['launcher', 'capturedBrowsers', 'executor', 'done']
 
 	config.set({
+		captureTimeout: 300000,
+
 		browserStack,
 
 		customLaunchers,
 
-		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers).slice(0, 1)), // DEBUG
+		browsers: mergeArrays(config.browsers, Object.keys(customLaunchers).slice(0, 10)), // DEBUG
 		// browsers: mergeArrays(config.browsers, Object.keys(customLaunchers)),
 
 		plugins: mergeArrays(config.plugins, [
@@ -392,15 +394,43 @@ module.exports.configBrowserStack = function (config) {
 		logLevel: config.LOG_DEBUG
 	})
 
-	// delete config.autoWatch
-	// Object.defineProperty(config, 'autoWatch', {
-	// 	value   : false,
-	// 	writable: false
-	// })
-	//
+	fixBrowserStackWebStormProblems(config)
+}
+
+function fixBrowserStackWebStormProblems(config) {
+	// Do not allow WebStorm to disable singleRun
+
 	delete config.singleRun
 	Object.defineProperty(config, 'singleRun', {
 		value   : true,
 		writable: false
 	})
+
+	// Disable 2 lines in browser.execute function:
+	// (see file karma/lib/browser.js)
+	// execute (config) {
+	// 	DISABLE: this.activeSockets.forEach((socket) => socket.emit('execute', config))
+	// 	DISABLE: this.setState(CONFIGURING)
+	// 	this.refreshNoActivityTimeout()
+	// }
+
+	// eslint-disable-next-line global-require
+	const Browser = require('karma/lib/browser')
+
+	// You should not not change variable names and comments. This is needed for injects.
+	Browser.factory = function (
+		id, fullName, /* capturedBrowsers */ collection, emitter, socket, timer,
+		/* config.browserDisconnectTimeout */ disconnectDelay,
+		/* config.browserNoActivityTimeout */ noActivityTimeout
+	) {
+		const browser = new Browser(id, fullName, collection, emitter, socket, timer, disconnectDelay, noActivityTimeout)
+
+		if (browser.execute) {
+			browser.execute = function () {
+				this.refreshNoActivityTimeout()
+			}
+			console.log('Fix BrowserStack WebStorm problems')
+		}
+		return browser
+	}
 }
