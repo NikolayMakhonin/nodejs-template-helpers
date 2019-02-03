@@ -79,7 +79,7 @@ module.exports.watchPatterns = function (...globbyPatterns) {
 module.exports.configCommon = function (config) {
 	function polyfill(files) {
 		files.unshift(...[
-			// Check if polyfill load first
+			// Check if polyfill load first and fix Uint8Array bug
 			servedPattern(writeTextFile(
 				path.resolve('./tmp/karma/polyfill_before.js'),
 				"'use strict'; \n"
@@ -102,6 +102,7 @@ module.exports.configCommon = function (config) {
 				+ '})();\n'
 			)),
 			// Load polyfill
+			servedPattern(require.resolve('./polyfill_custom')),
 			servedPattern(require.resolve('babel-polyfill/dist/polyfill')),
 			servedPattern(writeTextFile(
 				path.resolve('./tmp/karma/polyfill_after.js'),

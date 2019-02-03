@@ -19,7 +19,8 @@
     "coverage:karma": "karma start ./env/karma.conf.coverage.js",
     "coverage": "npm run lint && npm run coverage:mocha && npm run coverage:karma",
     "ci:karma": "karma start ./env/karma.conf.ci.js",
-    "ci": "npm run lint && npm run coverage:mocha && npm run ci:karma && ncat ./tmp/coverage/*/**/lcov.info | coveralls"
+    "ci": "npm run lint && npm run coverage:mocha && npm run ci:karma && ncat ./tmp/coverage/*/**/lcov.info | coveralls",
+    "cat": "ncat ./tmp/coverage/*/**/lcov.info"
   },
   "author": "",
   "license": "CC0-1.0",
