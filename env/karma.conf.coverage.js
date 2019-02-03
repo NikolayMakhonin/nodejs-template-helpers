@@ -6,17 +6,17 @@ const nodeResolve  = require('rollup-plugin-node-resolve')
 const commonjs  = require('rollup-plugin-commonjs')
 const babel = require('rollup-plugin-babel')
 const {uglify} = require('rollup-plugin-uglify')
-// const istanbul = require('rollup-plugin-istanbul')
+const istanbul = require('rollup-plugin-istanbul')
 const helpers = require('./karma.conf.helpers')
 
 module.exports = function (config) {
 	helpers.configCommon(config)
 
 	config.set({
-		browserNoActivityTimeout: 900000,
+		// browserNoActivityTimeout: 900000,
 		// browserDisconnectTimeout: 900000,
 		// browserSocketTimeout: 900000,
-		captureTimeout          : 900000,
+		// captureTimeout: 900000,
 		// processKillTimeout: 2000,
 
 		// list of files / patterns to load in the browser
@@ -24,9 +24,9 @@ module.exports = function (config) {
 			helpers.servedPattern(require.resolve('chai/chai')),
 			helpers.servedPattern(helpers.writeTextFile('tmp/karma/chai.js', '"use strict"; var assert = chai.assert, expect = chai.expect, should = chai.should;')),
 			helpers.concatJsFiles(
-				'tmp/karma/performance.js',
-				'test/performance/common/**/*.js',
-				'test/performance/browser/**/*.js',
+				'tmp/karma/tests.js',
+				'test/tests/common/**/*.js',
+				'test/tests/browser/**/*.js',
 				'!**/src/**/*.js'
 			)
 		],
@@ -37,13 +37,13 @@ module.exports = function (config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			'tmp/karma/performance.js': ['rollup']
+			'tmp/karma/tests.js': ['rollup']
 		},
 
 		rollupPreprocessor: {
 			plugins: [
 				babel(),
-				// istanbul(),
+				istanbul(helpers.nycrc),
 				// globals(),
 				// builtins(),
 				nodeResolve(),
@@ -72,7 +72,7 @@ module.exports = function (config) {
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters: ['progress'], // 'log-reporter'],
+		reporters: ['progress', 'coverage'], // 'log-reporter'],
 
 		// enable / disable watching file and executing node whenever any file changes
 		// !! not worked in WebStorm
@@ -86,6 +86,6 @@ module.exports = function (config) {
 
 		// Concurrency level
 		// how many browser should be started simultaneous
-		concurrency: 1
+		concurrency: Infinity
 	})
 }

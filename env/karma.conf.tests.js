@@ -48,7 +48,9 @@ module.exports = function (config) {
 		rollupPreprocessor: {
 			plugins: [
 				babel(),
-				// istanbul(),
+				// istanbul({
+				// 	exclude: ['test/**/*.js']
+				// }),
 				// globals(),
 				// builtins(),
 				nodeResolve(),

@@ -5,6 +5,6 @@
     "reporter": [
         "text-lcov"
     ],
-    "temp-dir": "./tmp/nyc",
-    "report-dir": "./.nyc_output"
+    "temp-dir": "./tmp/coverage",
+    "report-dir": "./tmp/coverage"
 }

@@ -12,12 +12,11 @@ const helpers = require('./karma.conf.helpers')
 module.exports = function (config) {
 	helpers.configCommon(config)
 
+	delete config.browsers
 	if (process.env.TRAVIS) {
-		delete config.browsers
-		// helpers.configDetectBrowsers(config)
+		helpers.configDetectBrowsers(config)
 		helpers.configBrowserStack(config)
 	} else {
-		delete config.browsers
 		helpers.configDetectBrowsers(config)
 	}
 
@@ -52,7 +51,7 @@ module.exports = function (config) {
 		rollupPreprocessor: {
 			plugins: [
 				babel(),
-				istanbul(),
+				istanbul(helpers.nycrc),
 				// globals(),
 				// builtins(),
 				nodeResolve(),

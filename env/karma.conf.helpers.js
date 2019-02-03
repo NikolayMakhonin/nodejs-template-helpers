@@ -4,7 +4,10 @@
 const globby = require('globby')
 const path = require('path')
 const fs = require('fs')
-const thisPackage = require('./package')
+const thisPackage = require('../package')
+const nycrc = require('./.nycrc')
+
+module.exports.nycrc = nycrc
 
 module.exports.concatArrays = concatArrays
 function concatArrays(...arrays) {
@@ -110,7 +113,7 @@ module.exports.configCommon = function (config) {
 
 	config.set({
 		// base path that will be used to resolve all patterns (eg. files, exclude)
-		basePath: '',
+		basePath: '..',
 
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -133,9 +136,9 @@ module.exports.configCommon = function (config) {
 
 		// optionally, configure the reporter
 		coverageReporter: {
-			type  : 'lcov',
-			dir   : '.nyc_output',
-			subDir: () => 'browser'
+			type: 'lcov',
+			dir : 'tmp/coverage/karma',
+			// subDir: () => 'browser'
 		},
 
 		// web server port
@@ -340,7 +343,12 @@ module.exports.configBrowserStack = function (config) {
 
 		customLaunchers,
 
-		browsers: concatArrays(config.browsers, Object.keys(customLaunchers)),
+		browsers: concatArrays(
+			config.browsers,
+			process.env.TRAVIS
+				? Object.keys(customLaunchers)
+				: Object.keys(customLaunchers).slice(0, 1)
+		),
 
 		plugins: concatArrays(config.plugins, ['karma-browserstack-launcher']),
 

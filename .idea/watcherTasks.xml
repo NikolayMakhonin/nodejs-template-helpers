@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="true">
-      <option name="arguments" value="js_watcher.js $ProjectFileDir$\$FileRelativePath$ $ProjectFileDir$\tmp\watch\$FileRelativePath$" />
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="env\js_transform_watcher.js $ProjectFileDir$\$FileRelativePath$ $ProjectFileDir$\tmp\watch\$FileRelativePath$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
