@@ -195,62 +195,62 @@ module.exports.configBrowserStack = function (config) {
 	const customLaunchers = {
 		// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
 		// browser statistics: http://gs.statcounter.com/browser-version-market-share
-		Android4_4: {
-			base      : 'BrowserStack',
-			browser   : 'android',
-			os        : 'android',
-			device    : 'Samsung Galaxy Tab 4',
-			os_version: '4.4',
-			realMobile: true
-		},
-		Android6: {
-			base      : 'BrowserStack',
-			browser   : 'android',
-			os        : 'android',
-			device    : 'Samsung Galaxy S7',
-			os_version: '6.0',
-			realMobile: true
-		},
-		// Android7: {
+		// Android4_4: {
 		// 	base      : 'BrowserStack',
 		// 	browser   : 'android',
 		// 	os        : 'android',
-		// 	device    : 'Samsung Galaxy S8',
-		// 	os_version: '7.0',
+		// 	device    : 'Samsung Galaxy Tab 4',
+		// 	os_version: '4.4',
 		// 	realMobile: true
 		// },
-		// Android8: {
+		// Android6: {
 		// 	base      : 'BrowserStack',
 		// 	browser   : 'android',
 		// 	os        : 'android',
-		// 	device    : 'Samsung Galaxy S9',
-		// 	os_version: '8.0',
+		// 	device    : 'Samsung Galaxy S7',
+		// 	os_version: '6.0',
 		// 	realMobile: true
 		// },
-		iOS10_3: {
-			base      : 'BrowserStack',
-			browser   : 'iOS',
-			os        : 'iOS',
-			device    : 'iPhone 7',
-			os_version: '10.3',
-			realMobile: true
-		},
-		iOS11: {
-			base      : 'BrowserStack',
-			browser   : 'iOS',
-			os        : 'iOS',
-			device    : 'iPhone 8',
-			os_version: '11.0',
-			realMobile: true
-		},
-		iOS12: {
-			base      : 'BrowserStack',
-			browser   : 'iOS',
-			os        : 'iOS',
-			device    : 'iPhone XS',
-			os_version: '12.1',
-			realMobile: true
-		},
+		// // Android7: {
+		// // 	base      : 'BrowserStack',
+		// // 	browser   : 'android',
+		// // 	os        : 'android',
+		// // 	device    : 'Samsung Galaxy S8',
+		// // 	os_version: '7.0',
+		// // 	realMobile: true
+		// // },
+		// // Android8: {
+		// // 	base      : 'BrowserStack',
+		// // 	browser   : 'android',
+		// // 	os        : 'android',
+		// // 	device    : 'Samsung Galaxy S9',
+		// // 	os_version: '8.0',
+		// // 	realMobile: true
+		// // },
+		// iOS10_3: {
+		// 	base      : 'BrowserStack',
+		// 	browser   : 'iOS',
+		// 	os        : 'iOS',
+		// 	device    : 'iPhone 7',
+		// 	os_version: '10.3',
+		// 	realMobile: true
+		// },
+		// iOS11: {
+		// 	base      : 'BrowserStack',
+		// 	browser   : 'iOS',
+		// 	os        : 'iOS',
+		// 	device    : 'iPhone 8',
+		// 	os_version: '11.0',
+		// 	realMobile: true
+		// },
+		// iOS12: {
+		// 	base      : 'BrowserStack',
+		// 	browser   : 'iOS',
+		// 	os        : 'iOS',
+		// 	device    : 'iPhone XS',
+		// 	os_version: '12.1',
+		// 	realMobile: true
+		// },
 		Chrome48: {
 			base           : 'BrowserStack',
 			browser        : 'Chrome',
