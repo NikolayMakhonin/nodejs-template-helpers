@@ -191,66 +191,70 @@ function configDetectBrowsers(config) {
 	})
 }
 
-module.exports.configBrowserStack = function (config) {
-	const customLaunchers = {
-		// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
-		// browser statistics: http://gs.statcounter.com/browser-version-market-share
-		// Android4_4: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'android',
-		// 	os        : 'android',
-		// 	device    : 'Samsung Galaxy Tab 4',
-		// 	os_version: '4.4',
-		// 	realMobile: true
-		// },
-		// Android6: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'android',
-		// 	os        : 'android',
-		// 	device    : 'Samsung Galaxy S7',
-		// 	os_version: '6.0',
-		// 	realMobile: true
-		// },
-		// // Android7: {
-		// // 	base      : 'BrowserStack',
-		// // 	browser   : 'android',
-		// // 	os        : 'android',
-		// // 	device    : 'Samsung Galaxy S8',
-		// // 	os_version: '7.0',
-		// // 	realMobile: true
-		// // },
-		// // Android8: {
-		// // 	base      : 'BrowserStack',
-		// // 	browser   : 'android',
-		// // 	os        : 'android',
-		// // 	device    : 'Samsung Galaxy S9',
-		// // 	os_version: '8.0',
-		// // 	realMobile: true
-		// // },
-		// iOS10_3: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'iOS',
-		// 	os        : 'iOS',
-		// 	device    : 'iPhone 7',
-		// 	os_version: '10.3',
-		// 	realMobile: true
-		// },
-		// iOS11: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'iOS',
-		// 	os        : 'iOS',
-		// 	device    : 'iPhone 8',
-		// 	os_version: '11.0',
-		// 	realMobile: true
-		// },
-		// iOS12: {
-		// 	base      : 'BrowserStack',
-		// 	browser   : 'iOS',
-		// 	os        : 'iOS',
-		// 	device    : 'iPhone XS',
-		// 	os_version: '12.1',
-		// 	realMobile: true
-		// },
+module.exports.configBrowserStack = function (config, desktop = true, mobile = false) {
+	// config: https://www.browserstack.com/list-of-browsers-and-platforms?product=automate
+	// browser statistics: http://gs.statcounter.com/browser-version-market-share
+
+	const mobileLaunchers = {
+		Android4_4: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Samsung Galaxy Tab 4',
+			os_version: '4.4',
+			realMobile: true
+		},
+		Android6: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Samsung Galaxy S7',
+			os_version: '6.0',
+			realMobile: true
+		},
+		Android7: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Samsung Galaxy S8',
+			os_version: '7.0',
+			realMobile: true
+		},
+		Android8: {
+			base      : 'BrowserStack',
+			browser   : 'android',
+			os        : 'android',
+			device    : 'Samsung Galaxy S9',
+			os_version: '8.0',
+			realMobile: true
+		},
+		iOS10_3: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone 7',
+			os_version: '10.3',
+			realMobile: true
+		},
+		iOS11: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone 8',
+			os_version: '11.0',
+			realMobile: true
+		},
+		iOS12: {
+			base      : 'BrowserStack',
+			browser   : 'iOS',
+			os        : 'iOS',
+			device    : 'iPhone XS',
+			os_version: '12.1',
+			realMobile: true
+		},
+	}
+
+	const desktopLaunchers = {
 		Chrome48: {
 			base           : 'BrowserStack',
 			browser        : 'Chrome',
@@ -315,6 +319,16 @@ module.exports.configBrowserStack = function (config) {
 			os_version     : '10',
 		}
 	}
+
+	const launchers = [{}]
+	if (desktop) {
+		launchers.push(desktopLaunchers)
+	}
+	if (mobile) {
+		launchers.push(mobileLaunchers)
+	}
+
+	const customLaunchers = Object.assign(...launchers)
 
 	const id = new Date().getTime().toString(36)
 	// see: https://github.com/karma-runner/karma-browserstack-launcher#global-options
