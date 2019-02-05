@@ -5,9 +5,6 @@ const globby = require('globby')
 const path = require('path')
 const fs = require('fs')
 const thisPackage = require('../package')
-const nycrc = require('./.nycrc')
-
-module.exports.nycrc = nycrc
 
 module.exports.concatArrays = concatArrays
 function concatArrays(...arrays) {
@@ -137,7 +134,7 @@ module.exports.configCommon = function (config) {
 
 		// optionally, configure the reporter
 		coverageReporter: {
-			type: 'lcov',
+			type: 'lcovonly',
 			dir : 'tmp/coverage/karma',
 			// subDir: () => 'browser'
 		},

@@ -1,4 +1,4 @@
-/* eslint-disable no-undefined,no-global-assign,no-undef */
+/* eslint-disable no-undefined,no-global-assign,no-undef,no-var,vars-on-top */
 /* eslint prefer-template: "off" */
 /* eslint-env es5 */
 /* eslint semi: ["error", "always"] */
@@ -8,11 +8,17 @@
 	}
 
 	// see: https://stackoverflow.com/a/16136040/5221762
-	function isIE(v) {
-		return RegExp('msie' + (!isNaN(v) ? '\\s' + v : ''), 'i').test(navigator.userAgent);
+	function getIeVersion() {
+		var match = navigator.userAgent.match(/msie\s*(\d+)/);
+		if (!match) {
+			return null;
+		}
+		return parseInt(match[1], 10);
 	}
 
-	if (isIE(10)) {
+	var ieVersion = getIeVersion();
+
+	if (ieVersion && ieVersion <= 10) {
 		Uint8Array = undefined;
 	}
 })();

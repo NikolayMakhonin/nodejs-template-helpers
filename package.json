@@ -2,32 +2,33 @@
   "name": "TODO",
   "version": "0.0.1",
   "description": "TODO",
+  "author": "TODO",
+  "homepage": "TODO",
+  "bugs": {
+    "url": "TODO"
+  },
+  "license": "CC0-1.0",
+
   "engines": {
     "node": ">= 6.4.0"
   },
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint --plugin markdown --ext js,md .",
-    "test:mocha": "mocha -r ./env/babel-register ./test/tests/common/ ./test/tests/node/ --recursive --exclude **/src/**",
+    "test:mocha": "mocha -r ./env/register-babel ./test/tests/common/ ./test/tests/node/ --recursive --exclude **/src/**",
     "test:karma": "karma start ./env/karma.conf.tests.js",
     "test": "npm run lint && npm run test:mocha && npm run test:karma",
-    "watch:mocha": "mocha -r ./env/babel-register ./test/tests/common/ ./test/tests/node/ --recursive --exclude **/src/** --watch --watch-extensions \"js){100}|^(((?!([\\\\/](dist|tmp|node_modules|reports|\\.[^\\\\/]*)[\\\\/]|\\.(log|bak)$)).)*\"",
+    "watch:mocha": "mocha -r ./env/register-babel ./test/tests/common/ ./test/tests/node/ --recursive --exclude **/src/** --watch --watch-extensions \"js){100}|^(((?!([\\\\/](dist|tmp|node_modules|reports|\\.[^\\\\/]*)[\\\\/]|\\.(log|bak)$)).)*\"",
     "watch:karma": "karma start ./env/karma.conf.tests.js --auto-watch",
-    "perf:mocha": "mocha -r ./env/babel-register ./test/performance/common/ ./test/performance/node/",
+    "perf:mocha": "mocha -r ./env/register-babel ./test/performance/common/ ./test/performance/node/",
     "perf:karma": "karma start ./env/karma.conf.performance.js",
-    "coverage:mocha": "nyc --nycrc-path ./env/.nycrc.json npm run test:mocha",
+    "coverage:mocha": "nyc npm run test:mocha",
     "coverage:karma": "karma start ./env/karma.conf.coverage.js",
     "coverage": "npm run lint && npm run coverage:mocha && npm run coverage:karma",
     "ci:karma": "karma start ./env/karma.conf.ci.js",
-    "ci": "npm run lint && npm run coverage:mocha && npm run ci:karma && ncat ./tmp/coverage/*/**/lcov.info | coveralls",
-    "cat": "ncat ./tmp/coverage/*/**/lcov.info"
+    "ci": "npm run lint && npm run coverage:mocha && npm run ci:karma && ncat ./tmp/coverage/**/lcov.info --banner \"\" | coveralls",
+    "cat": "ncat ./tmp/coverage/**/lcov.info --banner \"\""
   },
-  "author": "",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "TODO"
-  },
-  "homepage": "TODO",
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/plugin-proposal-class-properties": "^7.2.0",

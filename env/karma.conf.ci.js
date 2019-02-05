@@ -51,7 +51,7 @@ module.exports = function (config) {
 		rollupPreprocessor: {
 			plugins: [
 				babel(),
-				istanbul(helpers.nycrc),
+				istanbul(),
 				// globals(),
 				// builtins(),
 				nodeResolve(),
